@@ -9,7 +9,7 @@ The plugin is based on the standard [image component](https://coprl-ruby.herokua
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'google_maps_presenter_plugin', git: 'https://github.com/coprl/google_maps_presenter_plugin', require: false
+gem 'google_maps_presenter_plugin',  github: 'coprl/google_maps_presenter_plugin', branch: :main, require: false
 ```
 
 And then execute:
