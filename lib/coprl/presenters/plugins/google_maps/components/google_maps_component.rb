@@ -36,7 +36,7 @@ module Coprl
 
           def query_string
             return "#{@latitude},#{@longitude}" if @latitude && @longitude
-            URI.escape(@address)
+            URI.encode_www_form_component(@address)
           end
 
         end
