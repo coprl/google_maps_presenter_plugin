@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/coprl/google_maps_presenter_plugin/compare/v1.0.0...v1.0.1) (2021-06-03)
+
+
+### Bug Fixes
+
+* fixed URI.escape is obsolete warnings ([bda9196](https://github.com/coprl/google_maps_presenter_plugin/commit/bda9196d83f5c344f0ffff873e9a9f55f5614f41))
+
 # 1.0.0 (2021-06-03)
 
 
