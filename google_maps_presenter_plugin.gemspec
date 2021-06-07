@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Russell Edens"]
   spec.email         = ["russell@voomify.com"]
 
-  spec.summary       = %q{A COPRL presenter plugin for google maps images.}
+  spec.summary       = %q{A COPRL presenter plugin for google maps images}
   spec.homepage      = 'http://github.com/coprl/google_maps_presenters_plugin'
   spec.license       = "MIT"
 
