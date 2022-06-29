@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    google_maps_presenter_plugin (0.1.0)
+    google_maps_presenter_plugin (0.2.0)
 
 GEM
   remote: https://rubygems.org/
