@@ -4,15 +4,15 @@ module Coprl
   module Presenters
     module Plugins
       module GoogleMaps
-        class GoogleMapsComponent < DSL::Components::Image
+        class StaticMapComponent < DSL::Components::Image
 
           attr_reader :url, :google_api_key, :height, :width
 
           def initialize(**attribs_, &block)
             # These are also supplied in the base so we set them before passing them down
-            @map_width = strip_units(attribs_.fetch(:width) { 640 })
-            @map_height = strip_units(attribs_.fetch(:height) { 640 })
-            super(type: :google_maps, **attribs_, &block)
+            @map_width = strip_units(attribs_.fetch(:width, 640))
+            @map_height = strip_units(attribs_.fetch(:height, 640))
+            super(type: :static_map, **attribs_, &block)
             @address = attribs.delete(:address)
             @latitude = attribs.delete(:latitude)
             @longitude = attribs.delete(:longitude)

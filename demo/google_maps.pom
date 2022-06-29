@@ -1,10 +1,10 @@
 Coprl::Presenters.define(:google_maps) do
   plugin :google_maps
-  page_title 'Maps'
-  subheading 'Static Maps'
+  page_title 'Google Maps'
+  subheading 'Static Map'
 
   address = '125 Park Street, Traverse City, MI'
-  google_map address: address, height: 300, width: 400  do
+  static_map address: address, height: 300, width: 400  do
     event :click do
       loads "https://www.google.com/maps/place/#{address}"
     end
