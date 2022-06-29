@@ -1,4 +1,4 @@
-require_relative 'google_maps_component'
+require_relative 'static_map_component'
 
 module Coprl
   module Presenters
@@ -9,10 +9,9 @@ module Coprl
         # POM components require corresponding views templates and JS that render them.
         # Name this method whatever you want.
         module DSLComponents
-          def google_map(**attributes, &block)
-            self << GoogleMaps::GoogleMapsComponent.new(parent: self, **attributes, &block)
+          def static_map(**attributes, &block)
+            self << StaticMapComponent.new(parent: self, **attributes, &block)
           end
-          alias google_maps google_map
         end
       end
     end

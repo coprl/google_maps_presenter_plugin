@@ -7,10 +7,10 @@ module Coprl
             File.join(__dir__, '../../../../../../..', 'views', 'components')
           end
 
-          def render_google_maps(comp, render:, components:, index:)
-            render.call :erb, :google_maps, views: view_dir_google_maps(comp),
-                        locals: {comp: comp,
-                        components: components, index: index}
+          def render_static_map(comp, render:, components:, index:)
+            render.call :erb, :static_map,
+                        views: view_dir_google_maps(comp),
+                        locals: { comp: comp, components: components, index: index }
           end
         end
       end
