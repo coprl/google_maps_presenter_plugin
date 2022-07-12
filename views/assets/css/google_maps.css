@@ -1,0 +1,18 @@
+.pac-container {
+  font-family: inherit;
+}
+
+.pac-container > .pac-item {
+  font-size: inherit;
+  color: inherit;
+}
+
+.pac-item > .pac-item-query {
+  font-size: inherit;
+  color: inherit;
+}
+
+.pac-item > span:last-child {
+  font-size: 90%;
+  color: var(--mdc-theme-neutral5);
+}
