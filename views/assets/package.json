@@ -1,0 +1,22 @@
+{
+  "name": "google_maps_presenter_plugin",
+  "version": "1.0.2",
+  "description": "Google Maps plugin for COPRL",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild index.js --bundle --target=es2015 --minify --outfile=../../public/bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coprl/google_maps_presenter_plugin.git"
+  },
+  "author": "Evvnt <dev@evvnt.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/coprl/google_maps_presenter_plugin/issues"
+  },
+  "homepage": "https://github.com/coprl/google_maps_presenter_plugin#readme",
+  "devDependencies": {
+    "esbuild": "^0.18.17"
+  }
+}

@@ -5,8 +5,7 @@ module Coprl
     module Plugins
       module GoogleMaps
         class StaticMapComponent < DSL::Components::Image
-
-          attr_reader :url, :google_api_key, :height, :width
+          attr_reader :url, :height, :width
 
           def initialize(**attribs_, &block)
             # These are also supplied in the base so we set them before passing them down
@@ -18,7 +17,6 @@ module Coprl
             @longitude = attribs.delete(:longitude)
             @zoom = attribs.delete(:zoom) { 14 }
             @scale = attribs.delete(:scale) { 1 }
-            @google_api_key = attribs.delete(:google_api_key) { ENV['GOOGLE_API_KEY'] }
             @url = build_static_map_image_url
             expand!
           end
@@ -31,14 +29,13 @@ module Coprl
 
           def build_static_map_image_url
             return @img_url if locked?
-            @img_url = "https://maps.googleapis.com/maps/api/staticmap?center=#{query_string}&zoom=#{@zoom}&scale=#{@scale}&size=#{@map_width}x#{@map_height}&markers=|#{query_string}&key=#{@google_api_key}"
+            @img_url = "https://maps.googleapis.com/maps/api/staticmap?center=#{query_string}&zoom=#{@zoom}&scale=#{@scale}&size=#{@map_width}x#{@map_height}&markers=|#{query_string}&key=#{Settings.config.api_key}"
           end
 
           def query_string
             return "#{@latitude},#{@longitude}" if @latitude && @longitude
             URI.encode_www_form_component(@address)
           end
-
         end
       end
     end
