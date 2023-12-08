@@ -1,0 +1,34 @@
+<script async defer>
+  if (!('google_maps_presenter_plugin' in window)) {
+    window.google_maps_presenter_plugin = {
+      countries: <%= raw JSON.generate(comp.countries) %>,
+      subdivisions: <%= raw JSON.generate(comp.subdivisions) %>
+    }
+  }
+</script>
+<div id="<%= comp.id %>-wrapper"
+     class="v-plugin v-plugin--places-autocomplete"
+     data-plugin-callback="PlacesAutocompleteField"
+     data-strict="<%= comp.strict.to_s %>"
+     data-edit-dialog-id="<%= comp.edit_dialog_id %>"
+     <% if comp.bounds %>data-bounds="<%= h JSON.generate(comp.bounds) %>"<% end %>
+     <% if comp.types.any? %>data-types="<%= h JSON.generate(comp.types) %>"<% end %>
+     <% if comp.place %>data-place="<%= h JSON.generate(comp.place.to_h) %>"<% end %>
+     <%= partial 'components/event', locals: {comp: comp, events: comp.events, parent_id: comp.id} %>>
+  <div class="v-plugin--places-autocomplete--input">
+    <%= partial 'components/text_field', locals: {comp: comp} %>
+  </div>
+  <div class="v-plugin--places-autocomplete--selected-place v-content--direction-column v-content--align--start v-hidden">
+    <img src="https://maps.googleapis.com/maps/api/staticmap?center=0,0&zoom=14&size=640x230&key=<%= api_key %>">
+    <div style="display: flex; padding: var(--v-padding2); justify-content: space-between;">
+      <div class="v-content--direction-column v-content--align-center" style="overflow-x: hidden;">
+        <strong data-for="place-name"></strong>
+        <span data-for="place-address" style="overflow-x: hidden; text-overflow: ellipsis;"></span>
+      </div>
+      <div class="v-content--justify-center" style="gap: var(--v-padding2);">
+        <%= partial 'components/button', locals: {comp: comp.edit_button} %>
+        <%= partial 'components/button', locals: {comp: comp.remove_button} %>
+      </div>
+    </div>
+  </div>
+</div>
