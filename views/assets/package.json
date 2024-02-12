@@ -4,7 +4,8 @@
   "description": "Google Maps plugin for COPRL",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild index.js --bundle --target=es2015 --minify --outfile=../../public/bundle.js"
+    "watch": "esbuild index.js --bundle --watch --target=es2015 --outfile=../../public/bundle.js",
+    "build": "esbuild index.js --bundle --minify --target=es2015 --outfile=../../public/bundle.js"
   },
   "repository": {
     "type": "git",

@@ -42,31 +42,42 @@ module Coprl
               root = parent
             end
 
+            # need an alias to access #make_field_name
+            me = self
+
             @edit_dialog = DSL::Components::Dialog.new(parent: root, id: edit_dialog_id) do
               title 'Edit address'
 
               form do
-                text_field name: :name, auto_complete: 'organization' do
+                text_field name: me.make_field_name(:name), auto_complete: 'organization' do
                   label 'Name'
                 end
-                text_field name: :ln1, required: true, auto_complete: 'address-line1' do
+
+                text_field name: me.make_field_name(:ln1), required: true, auto_complete: 'address-line1' do
                   label 'Address'
                 end
-                text_field name: :ln2, auto_complete: 'address-line2' do
-                  label 'Address line 2'
+
+                text_field name: me.make_field_name(:ln2), auto_complete: 'address-line2' do
+                  label 'Address (line 2)'
                 end
-                text_field name: :city, required: true, auto_complete: 'address-level2' do
+
+                text_field name: me.make_field_name(:city), required: true, auto_complete: 'address-level2' do
                   label 'City/town'
                 end
-                select name: :region, required: true, auto_complete: 'address-level1' do
+
+                select name: me.make_field_name(:region), required: true, auto_complete: 'address-level1' do
                   label 'State/province'
+
+                  # options populated by JS; see `updateRegionOptions` JS function.
 
                   option
                 end
-                text_field name: :postal_code, required: true, auto_complete: 'postal-code' do
+
+                text_field name: me.make_field_name(:postal_code), required: true, auto_complete: 'postal-code' do
                   label 'Postal code'
                 end
-                select name: :country, required: true do
+
+                select name: me.make_field_name(:country), required: true do
                   label 'Country'
 
                   countries.each do |code, name|
@@ -112,6 +123,10 @@ module Coprl
 
           def place
             @value
+          end
+
+          def make_field_name(field_name)
+            self.name ? "#{self.name}[#{field_name}]" : field_name
           end
 
           private

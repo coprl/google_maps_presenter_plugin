@@ -51,7 +51,7 @@ export default class PlacesAutocompleteField {
     this.resultView = element.querySelector('.v-plugin--places-autocomplete--selected-place');
     this.editDialog = document.querySelector(`#${element.dataset.editDialogId}`);
     document.body.appendChild(this.editDialog);
-    this.actualName = this.input.name; // see disableAutocomplete, below
+    this.baseName = this.input.name; // see disableAutocomplete below
     this.input.addEventListener('focus', () => this.input.removeAttribute('placeholder'));
     this.input.addEventListener('focus', () => this.disableAutocomplete());
     this.input.addEventListener('keydown', e => {
@@ -108,7 +108,8 @@ export default class PlacesAutocompleteField {
         plugin.editDialog.vComponent.prepareSubmit(params);
 
         for (const [k, v] of params) {
-          plugin.placeData[k] = v == "" ? null : v;
+          const key = k.replace(this.baseName, '').replaceAll(/[\[\]]/g, '');
+          plugin.placeData[key] = v == "" ? null : v;
         }
 
         plugin.placeData.formatted_address = new AddressFormatter(plugin.placeData).string();
@@ -116,6 +117,7 @@ export default class PlacesAutocompleteField {
         plugin.closeDialog();
         plugin.updateResultView();
         plugin.updateDialogFields();
+        plugin.editDialog.vComponent.validate();
         break;
       }
       case 'places_autocomplete_address_dialog_dismissed': {
@@ -226,11 +228,11 @@ export default class PlacesAutocompleteField {
     }
 
     console.debug('PlacesAutocompleteField: payload =', this.placeData);
-    objectToFormData(params, this.placeData, this.actualName);
+    objectToFormData(params, this.placeData, this.baseName);
   }
 
   onCountryChanged() {
-    const countrySelect = this.editDialog.querySelector('[name="country"]').vComponent;
+    const countrySelect = this.editDialog.querySelector(`[name="${this.baseName}[country]"]`).vComponent;
     const countryCode = countrySelect.value();
     this.updateRegionOptions(countryCode);
   }
@@ -284,7 +286,7 @@ export default class PlacesAutocompleteField {
   }
 
   updateRegionOptions(countryCode) {
-    const regionSelect = this.editDialog.querySelector('[name="region"]');
+    const regionSelect = this.editDialog.querySelector(`[name="${this.baseName}[region]"]`);
     const subdivisions = getSubdivisions(countryCode);
 
     if (!subdivisions || subdivisions.length < 1) {
@@ -308,7 +310,7 @@ export default class PlacesAutocompleteField {
   }
 
   setDialogFieldValue(name, value) {
-    const component = this.editDialog.querySelector(`[name="${name}"]`).vComponent;
+    const component = this.editDialog.querySelector(`[name="${this.baseName}[${name}]"]`).vComponent;
     component.originalValue = value;
 
     if (value) {
